@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Scout Camp Adventure</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+
+    <!-- React -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel for JSX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      @import url("https://fonts.googleapis.com/css2?family=Cabin:wght@400;600;700&display=swap");
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Cabin", sans-serif;
+        background: #f8faf5;
+        color: #4b5563;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: fixed;
+        background: #f8faf5;
+      }
+
+      .game-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #gameCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: block;
+        touch-action: none;
+      }
+
+      .controls {
+        position: fixed;
+        bottom: env(safe-area-inset-bottom, 20px);
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 1000;
+        padding: 10px;
+      }
+
+      .control-btn {
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 2px solid #4b5563;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+        transition: all 0.2s ease;
+      }
+
+      .control-btn:active {
+        background: rgba(75, 85, 99, 0.2);
+        transform: scale(0.95);
+      }
+
+      .action-btn {
+        background: rgba(255, 215, 0, 0.8);
+      }
+
+      .task-info {
+        position: fixed;
+        top: env(safe-area-inset-top, 20px);
+        right: env(safe-area-inset-right, 20px);
+        background: rgba(144, 169, 85, 0.8);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        width: 100%;
+      }
+
+      .task-info:empty {
+        display: none;
+      }
+
+      @media (orientation: landscape) and (max-height: 500px) {
+        .controls {
+          right: env(safe-area-inset-right, 20px);
+          left: auto;
+          bottom: 50%;
+          transform: translateY(50%);
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <canvas id="gameCanvas"></canvas>
+      <div id="taskInfo" class="task-info"></div>
+      <div class="controls">
+        <button class="control-btn" id="leftBtn" aria-label="Move Left">
+          ←
+        </button>
+        <button class="control-btn" id="upBtn" aria-label="Move Up">↑</button>
+        <button class="control-btn" id="downBtn" aria-label="Move Down">
+          ↓
+        </button>
+        <button class="control-btn" id="rightBtn" aria-label="Move Right">
+          →
+        </button>
+        <button
+          class="control-btn action-btn"
+          id="actionBtn"
+          aria-label="Action"
+        >
+          ⚡
+        </button>
+      </div>
+    </div>
+
+    <!-- Game Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/character.js"></script>
+    <script src="js/environment.js"></script>
+    <script src="js/tasks.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/game.js"></script>
+  </body>
+</html>
