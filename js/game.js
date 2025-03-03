@@ -185,6 +185,7 @@ class Game {
 
     // Render at screen refresh rate
     this.render();
+    // this.showBedroomMap();
 
     requestAnimationFrame((time) => this.gameLoop(time));
   }
@@ -248,48 +249,6 @@ Trouve-moi, et je saurai te récompenser.</p>
     }
   }
 
-  drawMap() {
-    this.renderer.begin();
-
-    // Clear and draw background
-    this.renderer.ctx.fillStyle = "#F0F0F0";
-    this.renderer.ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-
-    // Apply camera transform
-    this.renderer.ctx.save();
-    this.renderer.ctx.translate(this.mapCamera.x, this.mapCamera.y);
-    this.renderer.ctx.scale(this.mapScale, this.mapScale);
-
-    // Draw rooms
-    this.rooms.forEach((room) => {
-      // Room outline
-      this.renderer.ctx.fillStyle = "#FFFFFF";
-      this.renderer.ctx.strokeStyle = "#000000";
-      this.renderer.ctx.lineWidth = 2;
-      this.renderer.ctx.beginPath();
-      this.renderer.ctx.rect(room.x, room.y, room.width, room.height);
-      this.renderer.ctx.fill();
-      this.renderer.ctx.stroke();
-
-      // Draw beds
-      room.beds.forEach((bed) => {
-        this.drawBed(room.x + bed.x, room.y + bed.y, bed.scout);
-      });
-
-      // Room number and capacity
-      this.renderer.ctx.fillStyle = "#000000";
-      this.renderer.ctx.font = "bold 20px Arial";
-      this.renderer.ctx.textAlign = "center";
-      this.renderer.ctx.fillText(
-        `Chambre ${room.id} (${room.beds.length} lits)`,
-        room.x + room.width / 2,
-        room.y - 10
-      );
-    });
-
-    this.renderer.ctx.restore();
-    this.renderer.end();
-  }
   showBedroomMap() {
     // Clear previous game canvas
     this.renderer.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -300,97 +259,149 @@ Trouve-moi, et je saurai te récompenser.</p>
         id: 1,
         x: 300,
         y: 200,
-        width: 400,
-        height: 300,
+        width: 240,
+        height: 130,
         beds: [
-          // First row
-          { x: 40, y: 10, scout: "Marie" },
-          { x: 140, y: 10, scout: "Samuel" },
-          { x: 240, y: 10, scout: "Fix" },
-          // Second row
-          { x: 40, y: 130, scout: "Seb" },
-          { x: 140, y: 130, scout: "Agathe" },
-          { x: 240, y: 130, scout: "Marion" },
+          { x: 40, y: 10, scout: "Marie + Samuel", blanket: "#FAF0E6" },
+          { x: 140, y: 10, scout: "Marion", blanket: "#FAF0E6" },
         ],
       },
       {
         id: 2,
-        x: 800,
-        y: 200,
-        width: 300,
-        height: 300,
-        beds: [
-          // First row
-          { x: 40, y: 40, scout: "Esther" },
-          { x: 140, y: 40, scout: "Fabien" },
-          // Second row
-          { x: 40, y: 160, scout: "Come" },
-          { x: 140, y: 160, scout: "Alban" },
-        ],
+        x: 300,
+        y: 200 + 170 * 1,
+        width: 240,
+        height: 130,
+        beds: [{ x: 90, y: 10, scout: "Esther + Fabien", blanket: "#FAF0E6" }],
       },
       {
         id: 3,
         x: 300,
-        y: 600,
-        width: 400,
-        height: 300,
+        y: 200 + 170 * 2,
+        width: 240,
+        height: 130,
         beds: [
-          // First row
-          { x: 40, y: 40, scout: "Flore" },
-          { x: 140, y: 40, scout: "Charlotte" },
-          { x: 240, y: 40, scout: "Emile" },
-          // Second row
-          { x: 90, y: 160, scout: "Nicolas" },
-          { x: 190, y: 160, scout: "Clemence" },
+          { x: 40, y: 10, scout: "Agathe + Seb", blanket: "#FAF0E6" },
+          { x: 140, y: 10, scout: "Juliette", blanket: "#FAF0E6" },
         ],
       },
       {
         id: 4,
-        x: 800,
-        y: 600,
-        width: 400,
+        x: 300,
+        y: 200 + 170 * 3,
+        width: 240,
         height: 300,
         beds: [
-          // First row
-          { x: 40, y: 40, scout: "Malo" },
-          { x: 140, y: 40, scout: "Rose" },
-          { x: 240, y: 40, scout: "Adèle" },
-          // Second row
-          { x: 90, y: 160, scout: "Aurelien" },
-          { x: 190, y: 160, scout: "Elise" },
+          { x: 40, y: 10, scout: "Come", blanket: "#FAF0E6" },
+          { x: 140, y: 10, scout: "Alban", blanket: "#FAF0E6" },
+          { x: 90, y: 160, scout: "Anatole", blanket: "#FAF0E6" },
         ],
       },
       {
         id: 5,
-        x: 300,
-        y: 1000,
-        width: 400,
-        height: 300,
-        beds: [
-          // First row
-          { x: 40, y: 40, scout: "Sophie" },
-          { x: 140, y: 40, scout: "Milo" },
-          { x: 240, y: 40, scout: "Chmile" },
-          // Second row
-          { x: 90, y: 160, scout: "Pablo" },
-          { x: 190, y: 160, scout: "Oceane" },
-        ],
+        x: 300 + 300 * 1,
+        y: 200,
+        width: 240,
+        height: 130,
+        beds: [{ x: 90, y: 10, scout: "Elise + Aurelien", blanket: "#9683EC" }],
       },
       {
         id: 6,
-        x: 800,
-        y: 1000,
-        width: 400,
+        x: 300 + 300 * 1,
+        y: 200 + 170 * 1,
+        width: 240,
+        height: 130,
+        beds: [
+          { x: 40, y: 10, scout: "Clemence + Nico", blanket: "#9683EC" },
+          { x: 140, y: 10, scout: "Flore", blanket: "#9683EC" },
+        ],
+      },
+      {
+        id: 7,
+        x: 300 + 300 * 1,
+        y: 200 + 170 * 2,
+        width: 330,
         height: 300,
         beds: [
-          // First row
-          { x: 40, y: 40, scout: "Clem" },
-          { x: 140, y: 40, scout: "Fred" },
-          { x: 240, y: 40, scout: "Romane" },
-          // Second row
-          { x: 40, y: 160, scout: "Leopold" },
-          { x: 140, y: 160, scout: "Arthur" },
-          { x: 240, y: 160, scout: "Martin" },
+          { x: 40, y: 10, scout: "Malo", blanket: "#9683EC" },
+          { x: 140, y: 10, scout: "Adele", blanket: "#9683EC" },
+          { x: 240, y: 10, scout: "Rose", blanket: "#9683EC" },
+          { x: 40, y: 160, scout: "Emile", blanket: "#9683EC" },
+          { x: 140, y: 160, scout: "Chacha", blanket: "#9683EC" },
+        ],
+      },
+      {
+        id: 8,
+        x: 1000,
+        y: 200,
+        width: 240,
+        height: 130,
+        beds: [{ x: 90, y: 10, scout: "Clem + Fred", blanket: "#ff3800" }],
+      },
+      {
+        id: 9,
+        x: 1000,
+        y: 200 + 170 * 1,
+        width: 240,
+        height: 130,
+        beds: [
+          { x: 40, y: 10, scout: "Coco + Lucie", blanket: "#ff3800" },
+          { x: 140, y: 10, scout: "Louise", blanket: "#ff3800" },
+        ],
+      },
+      {
+        id: 10,
+        x: 1000,
+        y: 200 + 170 * 2,
+        width: 330,
+        height: 300,
+        beds: [
+          { x: 40, y: 10, scout: "Arthur", blanket: "#ff3800" },
+          { x: 140, y: 10, scout: "Leopold", blanket: "#ff3800" },
+          { x: 240, y: 10, scout: "Romane", blanket: "#ff3800" },
+          { x: 40, y: 160, scout: "Victor", blanket: "#ff3800" },
+          { x: 140, y: 160, scout: "Martin", blanket: "#ff3800" },
+        ],
+      },
+      {
+        id: 11,
+        x: 1000,
+        y: 200 + 170 * 2 + 350,
+        width: 240,
+        height: 130,
+        beds: [{ x: 90, y: 10, scout: "Fix", blanket: "#ff3800" }],
+      },
+      {
+        id: 12,
+        x: 1400,
+        y: 200,
+        width: 240,
+        height: 130,
+        beds: [
+          { x: 40, y: 10, scout: "Filou", blanket: "#deb8ce" },
+          { x: 140, y: 10, scout: "Ismael", blanket: "#deb8ce" },
+        ],
+      },
+      {
+        id: 13,
+        x: 1400,
+        y: 200 + 170 * 1,
+        width: 240,
+        height: 130,
+        beds: [
+          { x: 40, y: 10, scout: "Sophie + Chmile", blanket: "#deb8ce" },
+          { x: 140, y: 10, scout: "Milo", blanket: "#deb8ce" },
+        ],
+      },
+      {
+        id: 14,
+        x: 1400,
+        y: 200 + 170 * 2,
+        width: 240,
+        height: 130,
+        beds: [
+          { x: 40, y: 10, scout: "Oceane", blanket: "#deb8ce" },
+          { x: 140, y: 10, scout: "Pablo", blanket: "#deb8ce" },
         ],
       },
     ];
@@ -517,7 +528,7 @@ Trouve-moi, et je saurai te récompenser.</p>
     this.drawMap();
   }
 
-  drawBed(x, y, scoutName) {
+  drawBed(x, y, scoutName, blanketColor) {
     const ctx = this.renderer.ctx;
 
     // Bed dimensions
@@ -533,7 +544,7 @@ Trouve-moi, et je saurai te récompenser.</p>
     ctx.fillRect(x + 5, y + 5, bedWidth - 10, 20);
 
     // Draw blanket
-    ctx.fillStyle = "#4A90E2";
+    ctx.fillStyle = blanketColor;
     ctx.fillRect(x + 5, y + 25, bedWidth - 10, 50);
 
     // Draw scout name
@@ -568,7 +579,7 @@ Trouve-moi, et je saurai te récompenser.</p>
 
       // Draw beds
       room.beds.forEach((bed) => {
-        this.drawBed(room.x + bed.x, room.y + bed.y, bed.scout);
+        this.drawBed(room.x + bed.x, room.y + bed.y, bed.scout, bed.blanket);
       });
 
       // Room number and capacity
@@ -576,7 +587,9 @@ Trouve-moi, et je saurai te récompenser.</p>
       this.renderer.ctx.font = "bold 20px Arial";
       this.renderer.ctx.textAlign = "center";
       this.renderer.ctx.fillText(
-        `Chambre ${room.id} (${room.beds.length} lits)`,
+        `Chambre ${room.id} (${room.beds.length} lit${
+          room.beds.length > 1 ? "s" : ""
+        })`,
         room.x + room.width / 2,
         room.y - 10
       );

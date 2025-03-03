@@ -7,7 +7,7 @@ class Task {
     this.completed = false;
     this.inProgress = false;
     this.progress = 0;
-    this.interactionRadius = 40;
+    this.interactionRadius = 50;
 
     // Task-specific properties
     switch (type) {
@@ -51,11 +51,17 @@ class Task {
   }
 
   canInteract(character) {
+    // Calculate character's center position
+    const charCenterX = character.x + character.width / 2;
+    const charCenterY = character.y + character.height / 2;
+
+    // Calculate distance from character's center to task's center
     const distance = Math.sqrt(
-      Math.pow(character.x + character.width / 2 - this.x, 2) +
-        Math.pow(character.y + character.height - this.y, 2)
+      Math.pow(charCenterX - this.x, 2) + Math.pow(charCenterY - this.y, 2)
     );
-    return distance < this.interactionRadius;
+
+    // Check if character is within interaction radius
+    return distance < this.interactionRadius * 1.2;
   }
 
   startInteraction(character) {
