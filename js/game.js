@@ -227,8 +227,8 @@ Mais pour le voyageur, je suis un sanctuaire.
 Trouve-moi, et je saurai te récompenser.</p>
                     
                     <div class="space-y-2">
-                        <input type="text" id="answerInput" class="w-full p-2 border rounded" placeholder="Réponse">
-                        <button id="answerenigma" class="w-full text-left p-2 border rounded hover:bg-gray-100">
+                        <input type="text" id="answerInput" class="w-full space-y-2 border rounded" placeholder="Réponse">
+                        <button id="answerenigma" class="action-btn border space-y-2 w-full">
                             Vérifier
                         </button>
                     </div>
@@ -491,12 +491,12 @@ Trouve-moi, et je saurai te récompenser.</p>
                 <h3 class="text-xl font-bold mb-4">Plan des Chambres</h3>
                 
                 <div class="flex justify-center gap-2 mb-4">
-                    <button id="zoomIn" class="p-2 bg-blue-500 text-white rounded">+</button>
-                    <button id="zoomOut" class="p-2 bg-blue-500 text-white rounded">-</button>
-                    <button id="resetView" class="p-2 bg-gray-500 text-white rounded">Reset</button>
+                    <button id="zoomIn" class="action-btn bg-blue-500 p-4 rounded text-white">Zoom +</button>
+                    <button id="zoomOut" class="action-btn bg-blue-500 p-4 rounded text-white">Zoom -</button>
+                    <button id="resetView" class="p-4 bg-gray-500 text-white rounded">Reset</button>
                 </div>
 
-                <button id="replayButton" class="mt-4 bg-green-500 text-white px-4 py-2 rounded w-full">
+                <button id="replayButton" class="mt-4 bg-green-500 text-white px-4 py-2 rounded w-full space-y-2">
                     Rejouer la mission
                 </button>
             </div>
