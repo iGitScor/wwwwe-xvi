@@ -150,7 +150,7 @@ class TaskManager {
                       ? "Terminé ✓"
                       : task.inProgress
                       ? `En cours... ${Math.floor(task.progress * 100)}%`
-                      : "Appuyez sur ESPACE pour commencer"
+                      : "Appuyez sur ESPACE ou ⚡️ pour commencer"
                   }</p>
               `;
       }
